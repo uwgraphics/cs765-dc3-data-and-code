@@ -1,0 +1,173 @@
+{
+    "assignments": [
+        "Discussion 1",
+        "Discussion 2",
+        "Discussion 3"
+    ],
+    "students": [
+        {
+            "sortable_name": "Avants, Adelaide",
+            "id": 3699,
+            "grades": [
+                {
+                    "score": 50,
+                    "late": -4,
+                    "posts": [
+                        {
+                            "length": 503,
+                            "images": 1
+                        }
+                    ]
+                },
+                {
+                    "score": 50,
+                    "late": -24,
+                    "posts": [
+                        {
+                            "length": 2132,
+                            "images": 0
+                        },
+                        {
+                            "length": 350,
+                            "images": 0
+                        },
+                        {
+                            "length": 224,
+                            "images": 0
+                        }
+                    ]
+                },
+                {
+                    "score": 50,
+                    "late": -12,
+                    "posts": [
+                        {
+                            "length": 692,
+                            "images": 1
+                        },
+                        {
+                            "length": 191,
+                            "images": 0
+                        },
+                        {
+                            "length": 158,
+                            "images": 0
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "sortable_name": "Silversmith, Shavonne",
+            "id": 6174,
+            "grades": [
+                {
+                    "score": 40,
+                    "late": -43,
+                    "posts": [
+                        {
+                            "length": 800,
+                            "images": 1
+                        }
+                    ]
+                },
+                {
+                    "score": 50,
+                    "late": -33,
+                    "posts": [
+                        {
+                            "length": 2110,
+                            "images": 1
+                        },
+                        {
+                            "length": 278,
+                            "images": 0
+                        }
+                    ]
+                },
+                {
+                    "score": 50,
+                    "late": -34,
+                    "posts": [
+                        {
+                            "length": 781,
+                            "images": 1
+                        },
+                        {
+                            "length": 193,
+                            "images": 0
+                        },
+                        {
+                            "length": 195,
+                            "images": 0
+                        },
+                        {
+                            "length": 138,
+                            "images": 0
+                        },
+                        {
+                            "length": 104,
+                            "images": 0
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "sortable_name": "Surita, Solange",
+            "id": 5183,
+            "grades": [
+                {
+                    "score": 40,
+                    "late": -19,
+                    "posts": [
+                        {
+                            "length": 443,
+                            "images": 0
+                        }
+                    ]
+                },
+                {
+                    "score": 50,
+                    "late": -37,
+                    "posts": [
+                        {
+                            "length": 1598,
+                            "images": 1
+                        },
+                        {
+                            "length": 335,
+                            "images": 0
+                        },
+                        {
+                            "length": 319,
+                            "images": 0
+                        }
+                    ]
+                },
+                {
+                    "score": 45,
+                    "late": 23,
+                    "posts": [
+                        {
+                            "length": 691,
+                            "images": 0
+                        },
+                        {
+                            "length": 134,
+                            "images": 0
+                        },
+                        {
+                            "length": 160,
+                            "images": 0
+                        },
+                        {
+                            "length": 109,
+                            "images": 0
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
