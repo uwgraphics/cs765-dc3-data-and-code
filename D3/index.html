@@ -1,0 +1,131 @@
+<!--
+simple example of making a visualization from a grade book file
+like Mike's, this is designed to be pretty minimal, and not a great vis.
+
+this is meant as a starting point, sketch first, and potentially use this
+as a guide to get to something better!  if you use this, give attribution.
+
+written by Alper Sarikaya, April 2017.
+-->
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<!-- if we had axes, this would be needed to style them correctly -->
+<style>
+
+.axis text {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+</style>
+<body>
+<script src="//d3js.org/d3.v3.min.js"></script>
+<script>
+
+// so we don't accidentally write things off of the canvas, give us a little breathing room
+var margins = {top: 20, right: 20, bottom: 40, left: 20};
+
+// modifying these variables should neatly update everything else
+var width = 600;
+var height = 800;
+
+var txtWidth = 150;
+var visWidth = width - txtWidth;
+
+var svg = d3.select('body').append('svg')
+    .attr('width', width + margins.left + margins.right)
+    .attr('height', height + margins.top + margins.bottom)
+    .append('g')
+        .attr('transform', 'translate(' + margins.left + ',' + margins.top + ')');
+
+// step out the box positions per assignment
+// see <https://github.com/d3/d3-3.x-api-reference/blob/master/Ordinal-Scales.md#ordinal>
+var x = d3.scale.ordinal()
+    .rangeRoundBands([0, visWidth], 0.2);
+
+// scale for determining name positions
+var y = d3.scale.ordinal()
+    .rangeRoundBands([0, height], 0.1);
+
+// get the data via an asynchronous call, then call our updateVis function
+// see <https://github.com/d3/d3-3.x-api-reference/blob/master/Requests.md#d3_json>
+// NOTE: you must run this page from within a webserver to get this to work (security concerns)
+//   use something like <https://www.npmjs.com/package/http-server> or 
+//   Python's HTTP Server: `python -m SimpleHTTPServer`.
+d3.json("../SimpleData/20x10.json", function(error, data) {
+    updateVis(data);
+});
+
+function updateVis(data) {
+    // update the scales now that we know domain variables
+    x.domain(d3.range(0, data.assignments.length));
+    y.domain(data.students.map(function(d) { return d.sortable_name; }));
+
+    // now, create a group for each student
+    // see <https://bost.ocks.org/mike/selection/> and <https://bost.ocks.org/mike/join/>
+    //   for information on how data joins work -- since we're only adding data, we jump
+    //   straight to data().enter(); we don't care about updating existing data or 
+    //   removing old data.  
+    // We have to have a general .selectAll() before calling data, regardless.
+    var newStudents = svg.selectAll('g.student')
+        .data(data.students).enter()
+        .append('g')
+            .attr('class', 'student')
+            .attr('transform', function(d) { 
+            return 'translate(0,' + y(d.sortable_name) + ')'
+            });
+
+    // add a node to display the student's name
+    newStudents.append('text')
+        .text(function(d) { return d.sortable_name; });
+
+    // group the assignment vis together
+    var assignmentGrps = newStudents.append('g')
+        .attr('class', 'assignments')
+        .attr('transform', 'translate(' + txtWidth + ',0)');
+
+    // now, assign a group for every assignment (for every student, so this makes a 2D selection)
+    var assignments = assignmentGrps.selectAll('g.assignment')
+        .data(function(student) { return student.grades; }).enter()
+        .append('g')
+            .attr('class', 'assignment')
+            .attr('transform', function(d, i) {
+                return 'translate(' + x(i) + ',0)';
+            });
+
+    // create a scale to manage the width of the grey rectangle, 
+    // which communicates the # of posts made for an assignment
+    var posts = d3.scale.linear()
+        .domain([0, 3])
+        .range([0, x.rangeBand()])
+        .clamp(true);
+
+    // draw the box that communicates the number of posts;
+    // draw this first so we can put text on top
+    assignments.append('rect')
+        .attr('y', -y.rangeBand() / 2)
+        .attr('height', y.rangeBand() / 1.5)
+        .attr('width', function(d) { 
+            return posts(d.posts.length); 
+        })
+        .style('fill', '#ccc');
+
+    // the score for each assignment; color red if the assignment was late
+    assignments.append('text')
+        .attr('x', x.rangeBand() / 2)
+        .style('text-anchor', 'middle')
+        .style('fill', function(d) { 
+            return d.late > 0 ? 'red' : 'black'; 
+        })
+        .text(function(d) { return d.score; });
+}
+
+</script>
