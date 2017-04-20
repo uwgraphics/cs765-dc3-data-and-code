@@ -4,6 +4,8 @@ This directory has information for the Design Challenge
 
 The subdirectories are:
 
+RealisticData: Data files that are more realistic - these are the ones you should visualize for your final versions.
+
 Python: Python 3.6 example code (including examples of file reading, and a simple SVG visualization)
 
 SimpleData: Some example files that are very simple (you cannot use these as the data you visualize for your final version)
